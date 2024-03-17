@@ -18,8 +18,9 @@ const StyledFeedback = styled.div`
 
   button,
   a {
-    width: 100%;
-    max-width: 174px;
+    padding-right: 48px;
+    padding-left: 48px;
+    width: fit-content;
   }
 `;
 

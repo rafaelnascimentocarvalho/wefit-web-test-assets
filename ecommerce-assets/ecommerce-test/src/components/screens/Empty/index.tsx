@@ -12,7 +12,7 @@ export default function Empty({ onClick }: EmptyProps) {
       button={
         !!onClick
           ? {
-              label: "RECARREGAR PÁGINA",
+              label: "Recarregar página",
               onClick: () => onClick(),
             }
           : {
