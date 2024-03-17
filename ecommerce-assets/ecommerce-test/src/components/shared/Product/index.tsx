@@ -25,6 +25,8 @@ const StyledProduct = styled.div`
     img {
       width: 100%;
       height: 100%;
+      top: 0;
+      left: 0;
       position: absolute;
       object-fit: contain;
     }
@@ -70,9 +72,7 @@ export default function Product({ id, title, price, image }: ProductType) {
     let cart: Array<ProductType> = ManipulateCart.items();
 
     if (!!cart.filter((item: ProductType) => item.id === id).length) {
-      cart = cart.map((item: ProductType) => {
-        return item.id === id ? { ...item, qtd: (item?.qtd ?? 0) + 1 } : item;
-      });
+      navigate("/carrinho");
     } else {
       cart.push({
         id: id,
@@ -81,12 +81,10 @@ export default function Product({ id, title, price, image }: ProductType) {
         image: image,
         qtd: 1,
       });
+
+      ManipulateCart.update(cart);
+      handleGlobalContext({ cart: cart });
     }
-
-    ManipulateCart.update(cart);
-    handleGlobalContext({ cart: cart });
-
-    navigate("/carrinho");
   };
 
   const [inCartCount, setInCartCount] = useState(0 as number);
@@ -113,7 +111,7 @@ export default function Product({ id, title, price, image }: ProductType) {
         <span>
           <img alt="loader" src="/assets/images/icons/add-cart.svg" />
           {inCartCount}
-        </span>{" "}
+        </span>
         ADICIONAR AO CARRINHO
       </Button>
     </StyledProduct>
