@@ -1,50 +1,90 @@
-$(document).ready(function () {
+document.addEventListener("DOMContentLoaded", function () {
   // MENU
-  $(".container .row")
-    .eq(0)
-    .find('[role="group"]')
-    .toggleClass("btn-group-vertical d-flex flex-row")
-    .find(".btn")
-    .addClass("mr-1");
-  // ---
+  var containerRows = document.querySelectorAll(".container .row");
+  if (!!containerRows[0]) {
+    var menuRow = containerRows[0];
+    var roleGroups = menuRow.querySelectorAll('[role="group"]');
+    if (!!roleGroups.length) {
+      roleGroups.forEach(function (group) {
+        group.classList.toggle("btn-group-vertical");
+        group.classList.toggle("d-flex");
+        group.classList.toggle("flex-row");
+        var buttons = group.querySelectorAll(".btn");
+        buttons.forEach(function (btn) {
+          btn.classList.add("mr-1");
+        });
+      });
+    }
+  }
 
   // HEADER
-  $(".container .row")
-    .eq(1)
-    .find(".jumbotron")
-    .addClass("bg-secondary text-white text-right")
-    .find("a.btn")
-    .toggleClass("btn-primary btn-success");
-  // ---
+  if (!!containerRows[1]) {
+    var headerRow = containerRows[1];
+    var jumbotron = headerRow.querySelector(".jumbotron");
+    if (jumbotron) {
+      jumbotron.classList.add("bg-secondary");
+      jumbotron.classList.add("text-white");
+      jumbotron.classList.add("text-right");
+      var headerButtons = jumbotron.querySelectorAll("a.btn");
+      headerButtons.forEach(function (btn) {
+        btn.classList.toggle("btn-primary");
+        btn.classList.toggle("btn-success");
+      });
+    }
+  }
 
   // CARDS
-  $(".container .row")
-    .eq(2)
-    .each(function () {
-      $(this).find(".col-lg-12").addClass("order-1");
-      $(this)
-        .find(".col-lg-3:nth-child(2)")
-        .addClass("order-2")
-        .find(".btn")
-        .toggleClass("btn-primary btn-success");
-      $(this).find(".col-lg-3:nth-child(3)").addClass("order-4");
-      $(this).find(".col-lg-3:nth-child(4)").addClass("order-3");
-      $(this).find(".col-lg-3:nth-child(5)").addClass("order-1");
+  if (!!containerRows[2]) {
+    var cardsRow = containerRows[2];
+    var cardCols = cardsRow.querySelectorAll(".col-lg-12, .col-lg-3");
+    cardCols.forEach(function (col) {
+      col.classList.add("order-1");
     });
-  // ---
+    var secondCol = cardsRow.querySelector(".col-lg-3:nth-child(2)");
+    if (secondCol) {
+      secondCol.classList.add("order-2");
+      var secondColBtn = secondCol.querySelector(".btn");
+      if (secondColBtn) {
+        secondColBtn.classList.toggle("btn-primary");
+        secondColBtn.classList.toggle("btn-success");
+      }
+    }
+    var thirdCol = cardsRow.querySelector(".col-lg-3:nth-child(3)");
+    if (thirdCol) {
+      thirdCol.classList.add("order-4");
+    }
+    var fourthCol = cardsRow.querySelector(".col-lg-3:nth-child(4)");
+    if (fourthCol) {
+      fourthCol.classList.add("order-3");
+    }
+    var fifthCol = cardsRow.querySelector(".col-lg-3:nth-child(5)");
+    if (fifthCol) {
+      fifthCol.classList.add("order-1");
+    }
+  }
 
   // LISTA
-  $(".container .row")
-    .eq(3)
-    .find(".list-group")
-    .each(function () {
-      $(".list-group-item", this).removeClass("active");
-
-      ["Quarto item", "Quinto item"].map((item) => {
-        $(this).append(`<li class="list-group-item">${item}</li>`);
+  if (!!containerRows[3]) {
+    var listaRow = containerRows[3];
+    var listGroups = listaRow.querySelectorAll(".list-group");
+    listGroups.forEach(function (listGroup) {
+      var listItems = listGroup.querySelectorAll(".list-group-item");
+      listItems.forEach(function (item) {
+        item.classList.remove("active");
       });
 
-      $(".list-group-item:nth-child(4)", this).addClass("active");
+      var newItems = ["Quarto item", "Quinto item"];
+      newItems.forEach(function (newItem) {
+        var li = document.createElement("li");
+        li.classList.add("list-group-item");
+        li.textContent = newItem;
+        listGroup.appendChild(li);
+      });
+
+      var fourthItem = listGroup.querySelector(".list-group-item:nth-child(4)");
+      if (fourthItem) {
+        fourthItem.classList.add("active");
+      }
     });
-  // ---
+  }
 });
