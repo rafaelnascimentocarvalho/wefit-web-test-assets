@@ -234,10 +234,6 @@ export default function Cart() {
   const [cartItems, setCartItems] = useState([] as Array<ProductType>);
 
   const submitCart = () => {
-    const cart: Array<ProductType> = ManipulateCart.items();
-
-    console.log("ORDER:", cart);
-
     ManipulateCart.update([]);
     handleGlobalContext({ cart: [] });
 

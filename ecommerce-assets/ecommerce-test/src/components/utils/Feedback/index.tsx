@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import Box from "../../layout/Box";
 import Button from "../../ui/form/ButtonUI";
